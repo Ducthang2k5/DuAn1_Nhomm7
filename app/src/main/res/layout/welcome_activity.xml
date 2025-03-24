@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chào mừng bạn!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp" />
+
+    <!-- Nút Đăng nhập User -->
+    <Button
+        android:id="@+id/btnUserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập với User"
+        android:padding="10dp"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@android:color/white"/>
+
+    <!-- Nút Đăng nhập Admin -->
+    <Button
+        android:id="@+id/btnAdminLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập với Admin"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
