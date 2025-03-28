@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.duan1_nhom7.R;
+import com.example.duan1_nhom7.User.UserLoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -91,8 +92,12 @@ public class AdminRegisterActivity extends AppCompatActivity {
                                                         .addOnSuccessListener(unused -> Toast.makeText(AdminRegisterActivity.this, "Vui lòng xác nhận email!", Toast.LENGTH_LONG).show())
                                                         .addOnFailureListener(e -> Toast.makeText(AdminRegisterActivity.this, "Lỗi gửi email xác thực: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
-                                                // Chuyển sang màn hình Login
-                                                startActivity(new Intent(AdminRegisterActivity.this, AdminLoginActivity.class));
+                                                // Chuyển màn hình theo vai trò
+                                                if ("admin".equals(role)) {
+                                                    startActivity(new Intent(AdminRegisterActivity.this, AdminLoginActivity.class));
+                                                } else {
+                                                    startActivity(new Intent(AdminRegisterActivity.this, UserLoginActivity.class));
+                                                }
                                                 finish();
                                             })
                                             .addOnFailureListener(e -> Toast.makeText(AdminRegisterActivity.this, "Lỗi Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show());
@@ -107,4 +112,4 @@ public class AdminRegisterActivity extends AppCompatActivity {
         // Chuyển về màn hình Login
         tvLogin.setOnClickListener(v -> startActivity(new Intent(AdminRegisterActivity.this, AdminLoginActivity.class)));
     }
-    }
+}
