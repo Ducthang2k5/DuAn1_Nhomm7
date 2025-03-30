@@ -7,11 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duan1_nhom7.Admin.AdminRegisterActivity;
-import com.example.duan1_nhom7.Home;
+import com.example.duan1_nhom7.home.Home;
 import com.example.duan1_nhom7.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
