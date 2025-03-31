@@ -24,7 +24,7 @@ public class Home extends AppCompatActivity {
         }
 
         // Thiết lập BottomNavigationView
-        BottomNavigationView bottomNav = findViewById(R.id.topNav);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             if (item.getItemId() == R.id.nav_home) {
