@@ -3,55 +3,64 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="#F5F5F5">
 
     <!-- Thanh tìm kiếm -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="#22A5D1"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true">
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        app:labelVisibilityMode="unlabeled"
+        android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/btnMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@null"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="#3C3C3C"
             android:src="@drawable/ic_menu"
             android:contentDescription="Menu" />
 
         <EditText
             android:id="@+id/searchBar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:hint="Tìm kiếm..."
-            android:padding="8dp"
+            android:hint="Tìm kiếm sản phẩm..."
+            android:padding="10dp"
+            android:textColorHint="#999999"
+            android:textColor="#333333"
+            android:background="@drawable/bg_search_bar"
             android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="8dp" />
+            android:drawablePadding="8dp"/>
     </LinearLayout>
 
-    <!-- Nội dung chính chứa các Fragment -->
+    <!-- Nội dung chính -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topBar"
-        android:layout_above="@id/topNav"/>
+        android:layout_above="@id/bottomNav"/>
 
     <!-- Thanh điều hướng dưới -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/topNav"
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="#22A5D1"
+        android:background="#FFFFFF"
         app:itemIconTint="@drawable/bottom_nav_color"
         app:itemTextColor="@drawable/bottom_nav_color"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu" />
+        app:menu="@menu/menu"
+        android:elevation="8dp"/>
 </RelativeLayout>

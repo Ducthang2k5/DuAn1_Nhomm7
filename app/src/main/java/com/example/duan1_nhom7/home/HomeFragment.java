@@ -43,6 +43,8 @@ public class HomeFragment extends Fragment {
         adapter = new ProductAdapter(getActivity(), productList, this);
         recyclerView.setAdapter(adapter);
 
+
+
         db = FirebaseFirestore.getInstance();
 
         // Gọi phương thức để lắng nghe thay đổi trong Firestore
@@ -56,6 +58,16 @@ public class HomeFragment extends Fragment {
         listenForProductUpdates();
 
         return view;
+
+//        btnMenu.setOnClickListener(v -> {
+//            Toast.makeText(getContext(), "Mở Menu", Toast.LENGTH_SHORT).show();
+//        });
+//
+//// Khi nhấn vào ô tìm kiếm
+//        searchBar.setOnClickListener(v -> {
+//            searchBar.setFocusableInTouchMode(true);
+//            searchBar.requestFocus();
+//        });
     }
 
     private void listenForProductUpdates() {
@@ -93,4 +105,5 @@ public class HomeFragment extends Fragment {
                     .addOnFailureListener(e -> Log.e("Firestore", "Lỗi khi thêm sản phẩm", e));
         }
     }
+
 }
