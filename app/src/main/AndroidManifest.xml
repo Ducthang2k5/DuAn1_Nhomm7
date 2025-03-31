@@ -25,7 +25,19 @@
             android:name=".Admin.AdminLoginActivity"
             android:exported="false" />
         <activity
+            android:name=".User.UserLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".Admin.AdminRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
             android:exported="false" />
         <activity
             android:name=".home.Home"
