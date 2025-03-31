@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.home.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -21,11 +26,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> productList;
     private Activity activity;
     private HomeFragment homeFragment;
+    private FirebaseFirestore db;
+    private FirebaseUser currentUser;
 
     public ProductAdapter(Activity activity, List<Product> productList, HomeFragment homeFragment) {
         this.activity = activity;
         this.productList = productList;
         this.homeFragment = homeFragment;
+        this.db = FirebaseFirestore.getInstance();
+        this.currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @NonNull
@@ -41,20 +50,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtName.setText(product.getName());
         holder.txtPrice.setText(product.getPrice() + " VNĐ");
 
-        // Load ảnh sản phẩm từ URL hoặc URI đã chọn
+        // Load ảnh sản phẩm từ Firestore
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
-                .placeholder(R.drawable.ic_default_image) // Ảnh mặc định khi tải ảnh
+                .placeholder(R.drawable.ic_default_image)
                 .into(holder.imgProduct);
 
-        // Xử lý khi nhấn vào ảnh để chọn ảnh mới
-        holder.imgProduct.setOnClickListener(v -> homeFragment.setSelectedView(v));
-    }
+        // Xử lý thêm vào giỏ hàng
+        holder.btnAddToCart.setOnClickListener(v -> {
+            if (currentUser != null) {
+                String userId = currentUser.getUid();
 
-    // Cập nhật ảnh của sản phẩm khi người dùng chọn ảnh mới
-    public void updateProductImage(int position, String imageUrl) {
-        productList.get(position).setImageUrl(imageUrl);
-        notifyItemChanged(position);
+                db.collection("users").document(userId)
+                        .collection("cart")
+                        .document(product.getId())
+                        .set(product)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(activity, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(activity, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            } else {
+                Toast.makeText(activity, "Bạn cần đăng nhập để thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -65,12 +81,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView txtName, txtPrice;
         ImageView imgProduct;
+        Button btnAddToCart;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = itemView.findViewById(R.id.txtProductName);
-            txtPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtName = itemView.findViewById(R.id.tvProductName);
+            txtPrice = itemView.findViewById(R.id.tvProductPrice);
             imgProduct = itemView.findViewById(R.id.imgProduct);
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }
     }
 }
