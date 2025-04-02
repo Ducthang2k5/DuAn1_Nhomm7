@@ -51,6 +51,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".password.PasswordChangeActivity">
+            <!-- Nếu cần, có thể thêm intent filter -->
+        </activity>
+
 
         <activity
             android:name=".Welcome.WelcomeActivity"
