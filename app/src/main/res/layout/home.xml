@@ -38,7 +38,6 @@
             android:padding="10dp"
             android:textColorHint="#999999"
             android:textColor="#333333"
-            android:background="@drawable/bg_search_bar"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"/>
 
@@ -66,7 +65,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         app:itemIconTint="@drawable/bottom_nav_color"
