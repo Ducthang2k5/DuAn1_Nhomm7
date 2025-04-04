@@ -15,9 +15,9 @@
         android:padding="8dp"
         android:background="#FFFFFF"
         android:elevation="4dp"
-        app:labelVisibilityMode="unlabeled"
         android:gravity="center_vertical">
 
+        <!-- Nút menu -->
         <ImageButton
             android:id="@+id/btnMenu"
             android:layout_width="40dp"
@@ -25,10 +25,10 @@
             android:background="@null"
             android:scaleType="centerInside"
             android:padding="8dp"
-            android:tint="#3C3C3C"
             android:src="@drawable/ic_menu"
             android:contentDescription="Menu" />
 
+        <!-- Thanh tìm kiếm -->
         <EditText
             android:id="@+id/searchBar"
             android:layout_width="0dp"
@@ -41,6 +41,17 @@
             android:background="@drawable/bg_search_bar"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"/>
+
+        <!-- Nút giỏ hàng -->
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:src="@drawable/baseline_shopping_cart_24"
+            android:contentDescription="Giỏ hàng" />
     </LinearLayout>
 
     <!-- Nội dung chính -->
