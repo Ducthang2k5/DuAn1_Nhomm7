@@ -44,10 +44,10 @@
             android:paddingTop="4dp"/>
 
         <Button
-            android:id="@+id/btnAddToCart"
+            android:id="@+id/btnViewDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm vào giỏ hàng"
+            android:text="Xem chi tiet"
             android:textSize="14sp"
             android:backgroundTint="@android:color/holo_blue_light"
             android:textColor="@android:color/white"

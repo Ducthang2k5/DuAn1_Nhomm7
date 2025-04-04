@@ -1,19 +1,24 @@
 package com.example.duan1_nhom7.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1_nhom7.Cart.CartActivity;
 import com.example.duan1_nhom7.Product.Product;
 import com.example.duan1_nhom7.Product.ProductAdapter;
 import com.example.duan1_nhom7.R;
@@ -31,6 +36,10 @@ public class HomeFragment extends Fragment {
     private List<Product> productList;
     private FirebaseFirestore db;
 
+    private ImageButton btnCartt;
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +51,9 @@ public class HomeFragment extends Fragment {
         productList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(), productList, this);
         recyclerView.setAdapter(adapter);
+
+
+
 
 
 
@@ -57,17 +69,35 @@ public class HomeFragment extends Fragment {
         });
         listenForProductUpdates();
 
+
+
+        btnCartt = view.findViewById(R.id.btnCart);
+
+        if (btnCartt != null) {
+            btnCartt.setOnClickListener(v -> {
+                // Khi nhấn nút giỏ hàng, chuyển sang CartActivity
+                Intent intent = new Intent(getActivity(), CartActivity.class);
+                startActivity(intent);
+            });
+        } else {
+            Log.e("HomeFragment", "btnAddToCart is not found!");
+        }
+
+
+
         return view;
 
-//        btnMenu.setOnClickListener(v -> {
-//            Toast.makeText(getContext(), "Mở Menu", Toast.LENGTH_SHORT).show();
-//        });
-//
-//// Khi nhấn vào ô tìm kiếm
-//        searchBar.setOnClickListener(v -> {
-//            searchBar.setFocusableInTouchMode(true);
-//            searchBar.requestFocus();
-//        });
+
+
+
+
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment); // Thay thế fragment hiện tại bằng CartFragment
+        transaction.addToBackStack(null); // Nếu muốn có thể quay lại fragment trước đó
+        transaction.commit(); // Áp dụng transaction
     }
 
     private void listenForProductUpdates() {
@@ -93,11 +123,10 @@ public class HomeFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         List<Product> sampleProducts = new ArrayList<>();
-        sampleProducts.add(new Product("1", "Trà sữa hoàng kim ", "https://www.google.com/imgres?q=tr%C3%A0%20s%E1%BB%AFa&imgurl=https%3A%2F%2Fsimexcodl.com.vn%2Fwp-content%2Fuploads%2F2024%2F05%2Ftra-sua-ca-phe-2.jpg&imgrefurl=https%3A%2F%2Fsimexcodl.com.vn%2Ftra-sua-ca-phe%2F&docid=HG6V-UU1u-J2QM&tbnid=eh9vxXloKwdGtM&vet=12ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA..i&w=800&h=450&hcb=2&ved=2ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA", 100000));
-        sampleProducts.add(new Product("2", "Trà sữa hoàng kim ", "https://www.google.com/imgres?q=tr%C3%A0%20s%E1%BB%AFa&imgurl=https%3A%2F%2Fsimexcodl.com.vn%2Fwp-content%2Fuploads%2F2024%2F05%2Ftra-sua-ca-phe-2.jpg&imgrefurl=https%3A%2F%2Fsimexcodl.com.vn%2Ftra-sua-ca-phe%2F&docid=HG6V-UU1u-J2QM&tbnid=eh9vxXloKwdGtM&vet=12ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA..i&w=800&h=450&hcb=2&ved=2ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA", 100000));
-        sampleProducts.add(new Product("3", "Trà sữa hoàng kim ", "https://www.google.com/imgres?q=tr%C3%A0%20s%E1%BB%AFa&imgurl=https%3A%2F%2Fsimexcodl.com.vn%2Fwp-content%2Fuploads%2F2024%2F05%2Ftra-sua-ca-phe-2.jpg&imgrefurl=https%3A%2F%2Fsimexcodl.com.vn%2Ftra-sua-ca-phe%2F&docid=HG6V-UU1u-J2QM&tbnid=eh9vxXloKwdGtM&vet=12ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA..i&w=800&h=450&hcb=2&ved=2ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA", 100000));
-        sampleProducts.add(new Product("4", "Trà sữa hoàng kim ", "https://www.google.com/imgres?q=tr%C3%A0%20s%E1%BB%AFa&imgurl=https%3A%2F%2Fsimexcodl.com.vn%2Fwp-content%2Fuploads%2F2024%2F05%2Ftra-sua-ca-phe-2.jpg&imgrefurl=https%3A%2F%2Fsimexcodl.com.vn%2Ftra-sua-ca-phe%2F&docid=HG6V-UU1u-J2QM&tbnid=eh9vxXloKwdGtM&vet=12ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA..i&w=800&h=450&hcb=2&ved=2ahUKEwjmy6HF07OMAxWNdfUHHTyMNjMQM3oECE8QAA", 100000));
-
+        sampleProducts.add(new Product("1", "Trà sữa hoàng kim ", "https://simexcodl.com.vn/wp-content/uploads/2024/05/tra-sua-ca-phe-2.jpg", 25000));
+        sampleProducts.add(new Product("2", "Trà sữa bạc hà ", "https://simexcodl.com.vn/wp-content/uploads/2024/05/tra-sua-ca-phe-2.jpg", 30000));
+        sampleProducts.add(new Product("3", "Trà sữa trân trâu đường đen ", "https://simexcodl.com.vn/wp-content/uploads/2024/05/tra-sua-ca-phe-2.jpg", 36000));
+        sampleProducts.add(new Product("4", "Trà sữa khoai môn ", "https://simexcodl.com.vn/wp-content/uploads/2024/05/tra-sua-ca-phe-2.jpg", 35000));
         for (Product product : sampleProducts) {
             db.collection("products").document(product.getId())
                     .set(product)

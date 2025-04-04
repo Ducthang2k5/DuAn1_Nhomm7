@@ -1,6 +1,7 @@
 package com.example.duan1_nhom7.Product;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private HomeFragment homeFragment;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
+
+    private Button btnViewDetails;
 
     public ProductAdapter(Activity activity, List<Product> productList, HomeFragment homeFragment) {
         this.activity = activity;
@@ -57,7 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .into(holder.imgProduct);
 
         // Xử lý thêm vào giỏ hàng
-        holder.btnAddToCart.setOnClickListener(v -> {
+        holder.btnViewDetails.setOnClickListener(v -> {
             if (currentUser != null) {
                 String userId = currentUser.getUid();
 
@@ -71,6 +74,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Toast.makeText(activity, "Bạn cần đăng nhập để thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Gán sự kiện click cho nút "Xem chi tiết"
+        holder.btnViewDetails.setOnClickListener(v -> {
+            // Sử dụng activity thay vì context
+            Intent intent = new Intent(activity, ProductDetailActivity.class);
+            intent.putExtra("productId", product.getId());  // Truyền productId qua Intent
+            activity.startActivity(intent);  // Dùng activity.startActivity thay vì context.startActivity
+        });
     }
 
     @Override
@@ -81,14 +92,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView txtName, txtPrice;
         ImageView imgProduct;
-        Button btnAddToCart;
+        Button btnViewDetails;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.tvProductName);
             txtPrice = itemView.findViewById(R.id.tvProductPrice);
             imgProduct = itemView.findViewById(R.id.imgProduct);
-            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
+            btnViewDetails = itemView.findViewById(R.id.btnViewDetail);
         }
     }
 }
