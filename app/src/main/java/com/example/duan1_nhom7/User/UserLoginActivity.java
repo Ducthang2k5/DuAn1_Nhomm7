@@ -78,7 +78,10 @@ public class UserLoginActivity extends AppCompatActivity {
                                                     Toast.makeText(UserLoginActivity.this, "Lỗi dữ liệu người dùng!", Toast.LENGTH_SHORT).show();
                                                 }
                                             })
-                                            .addOnFailureListener(e -> Toast.makeText(UserLoginActivity.this, "Lỗi Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                            .addOnFailureListener(e -> {
+                                                System.err.println("Error fetching user data: " + e.getMessage());
+                                                Toast.makeText(UserLoginActivity.this, "Lỗi Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            });
                                 }
                             } else {
                                 Toast.makeText(UserLoginActivity.this, "Lỗi: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();

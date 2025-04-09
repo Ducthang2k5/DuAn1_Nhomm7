@@ -1,17 +1,20 @@
 package com.example.duan1_nhom7.home;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.duan1_nhom7.Cart.CartActivity;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.home.HomeFragment;
 import com.example.duan1_nhom7.home.ProductFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements HomeFragment.OnCartClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,13 @@ public class Home extends AppCompatActivity {
             }
             return true;
         });
+    }
+    // Implement method from HomeFragment to handle cart click
+    @Override
+    public void onCartClicked() {
+        // Chuyển tới CartActivity khi nhấn nút giỏ hàng
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
     }
 
     private void loadFragment(Fragment fragment) {
