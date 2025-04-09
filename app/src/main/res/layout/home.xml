@@ -6,52 +6,52 @@
     android:fitsSystemWindows="true"
     android:background="#F5F5F5">
 
-    <!-- Thanh tìm kiếm -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="#FFFFFF"
-        android:elevation="4dp"
-        android:gravity="center_vertical">
+<!--    &lt;!&ndash; Thanh tìm kiếm &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/topBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:elevation="4dp"-->
+<!--        android:gravity="center_vertical">-->
 
-        <!-- Nút menu -->
-        <ImageButton
-            android:id="@+id/btnMenu"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:padding="8dp"
-            android:src="@drawable/ic_menu"
-            android:contentDescription="Menu" />
+<!--        &lt;!&ndash; Nút menu &ndash;&gt;-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnMenu"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@null"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:padding="8dp"-->
+<!--            android:src="@drawable/ic_menu"-->
+<!--            android:contentDescription="Menu" />-->
 
-        <!-- Thanh tìm kiếm -->
-        <EditText
-            android:id="@+id/searchBar"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:hint="Tìm kiếm sản phẩm..."
-            android:padding="10dp"
-            android:textColorHint="#999999"
-            android:textColor="#333333"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="8dp"/>
+<!--        &lt;!&ndash; Thanh tìm kiếm &ndash;&gt;-->
+<!--        <EditText-->
+<!--            android:id="@+id/searchBar"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="Tìm kiếm sản phẩm..."-->
+<!--            android:padding="10dp"-->
+<!--            android:textColorHint="#999999"-->
+<!--            android:textColor="#333333"-->
+<!--            android:drawableStart="@drawable/ic_search"-->
+<!--            android:drawablePadding="8dp"/>-->
 
-        <!-- Nút giỏ hàng -->
-        <ImageButton
-            android:id="@+id/btnCart"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:padding="8dp"
-            android:src="@drawable/baseline_shopping_cart_24"
-            android:contentDescription="Giỏ hàng" />
-    </LinearLayout>
+<!--        &lt;!&ndash; Nút giỏ hàng &ndash;&gt;-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnCart"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@null"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:padding="8dp"-->
+<!--            android:src="@drawable/baseline_shopping_cart_24"-->
+<!--            android:contentDescription="Giỏ hàng" />-->
+<!--    </LinearLayout>-->
 
     <!-- Nội dung chính -->
     <androidx.fragment.app.FragmentContainerView
