@@ -1,0 +1,202 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:id="@+id/main">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- THÔNG TIN NGƯỜI NHẬN -->
+        <TextView
+            android:text="Thông tin người nhận"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edtName"
+            android:hint="Họ và tên"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:hint="Số điện thoại"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:hint="Địa chỉ giao hàng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- DANH SÁCH SẢN PHẨM -->
+        <TextView
+            android:text="Sản phẩm trong giỏ hàng"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"/>
+
+        <!-- PHƯƠNG THỨC THANH TOÁN -->
+        <TextView
+            android:text="Phương thức thanh toán"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupPayment"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioCOD"
+                android:text="COD"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioQR"
+                android:text="QR Code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <!-- CHỌN VOUCHER -->
+        <TextView
+            android:text="Voucher"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/btnChooseVoucher"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_border_gray"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvSelectedVoucher"
+                android:text="Chọn voucher"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:src="@drawable/ic_arrow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- GHI CHÚ -->
+        <EditText
+            android:id="@+id/edtNote"
+            android:hint="Ghi chú đơn hàng (không bắt buộc)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
+
+        <!-- TỔNG TIỀN GIỐNG SHOPEE -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDD"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+            <TextView android:text="Tiền hàng"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvSubtotal"
+                android:text="0₫"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+            <TextView android:text="Voucher giảm"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvVoucherDiscount"
+                android:text="-0₫"
+                android:textColor="#FF5722"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+            <TextView android:text="Phí vận chuyển"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvShippingFee"
+                android:text="20.000₫"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp">
+            <TextView android:text="Tổng thanh toán"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:textStyle="bold" android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvTotalPayment"
+                android:text="0₫"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#FF0000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- BUTTON ĐẶT HÀNG -->
+        <Button
+            android:id="@+id/btnPlaceOrder"
+            android:text="Xác nhận đặt hàng"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>
