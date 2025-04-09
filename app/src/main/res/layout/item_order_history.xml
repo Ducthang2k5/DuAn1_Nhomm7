@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Mã đơn hàng hoặc ngày -->
+        <TextView
+            android:id="@+id/tvOrderDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ngày đặt: 08/04/2025"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Tổng tiền -->
+        <TextView
+            android:id="@+id/tvOrderTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: 105.000₫"
+            android:textSize="15sp"
+            android:textColor="#555555"
+            android:layout_marginTop="4dp" />
+
+        <!-- Phương thức thanh toán -->
+        <TextView
+            android:id="@+id/tvPaymentMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thanh toán: COD"
+            android:textSize="15sp"
+            android:textColor="#555555"
+            android:layout_marginTop="2dp" />
+
+        <!-- Voucher (nếu có) -->
+        <TextView
+            android:id="@+id/tvVoucherUsed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voucher: giảm 50k"
+            android:textSize="15sp"
+            android:textColor="#555555"
+            android:layout_marginTop="2dp" />
+
+        <!-- Ghi chú -->
+        <TextView
+            android:id="@+id/tvOrderNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ghi chú: Giao buổi sáng"
+            android:textSize="14sp"
+            android:textColor="#777777"
+            android:layout_marginTop="2dp" />
+
+        <!-- Trạng thái đơn hàng (nếu mở rộng sau này) -->
+        <!--
+        <TextView
+            android:id="@+id/tvOrderStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trạng thái: Đã giao"
+            android:textSize="14sp"
+            android:textColor="#008000"
+            android:layout_marginTop="2dp" />
+        -->
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

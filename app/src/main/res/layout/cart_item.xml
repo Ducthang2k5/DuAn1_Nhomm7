@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white">
+
+        <!-- Hình ảnh sản phẩm -->
+        <ImageView
+            android:id="@+id/cartItemImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_background"
+            android:contentDescription="Hình sản phẩm" />
+
+        <!-- Cột thông tin sản phẩm -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingEnd="8dp">
+
+            <TextView
+                android:id="@+id/cartItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trà sữa trân châu"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/cartItemPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá: 45.000 VNĐ"
+                android:textSize="14sp"
+                android:textColor="#E91E63"
+                android:layout_marginTop="2dp" />
+
+            <!-- Size + Đường hiển thị cùng hàng -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:id="@+id/cartItemSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size: M"
+                    android:textSize="13sp"
+                    android:textColor="#757575"
+                    android:layout_marginEnd="12dp"/>
+
+                <TextView
+                    android:id="@+id/cartItemSugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đường: 75%"
+                    android:textSize="13sp"
+                    android:textColor="#757575" />
+            </LinearLayout>
+
+            <!-- Cụm tăng giảm -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/btnDecrease"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/dau_tru"
+                    android:background="@drawable/btn_round_gray"
+                    android:padding="4dp"
+                    android:contentDescription="Giảm số lượng" />
+
+                <TextView
+                    android:id="@+id/cartItemQuantity"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/btnIncrease"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/dau_cong"
+                    android:background="@drawable/btn_round_gray"
+                    android:padding="4dp"
+                    android:contentDescription="Tăng số lượng" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nút XÓA -->
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="Xóa sản phẩm"
+            android:tint="#F44336" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
