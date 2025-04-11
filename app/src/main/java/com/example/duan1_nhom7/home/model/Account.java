@@ -1,4 +1,4 @@
-package com.example.duan1_nhom7.model;
+package com.example.duan1_nhom7.home.model;
 
 public class Account {
     private String id;

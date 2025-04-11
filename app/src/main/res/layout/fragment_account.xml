@@ -109,6 +109,17 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sửa thông tin"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            />
+
+
+
         <LinearLayout
             android:id="@+id/userFrgmDangXuat"
             android:layout_width="match_parent"

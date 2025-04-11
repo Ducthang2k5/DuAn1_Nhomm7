@@ -19,7 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.User.UserLoginActivity;
 import com.example.duan1_nhom7.Welcome.WelcomeActivity;
-import com.example.duan1_nhom7.model.Account;
+
+import com.example.duan1_nhom7.home.model.Account;
 import com.example.duan1_nhom7.password.PasswordChangeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
