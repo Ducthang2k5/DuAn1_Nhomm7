@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.User.UserLoginActivity;
+import com.example.duan1_nhom7.Welcome.WelcomeActivity;
 import com.example.duan1_nhom7.model.Account;
 import com.example.duan1_nhom7.password.PasswordChangeActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -177,7 +178,7 @@ public class AccountFragment extends Fragment {
         Toast.makeText(getContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
 
         // Chuyển về màn hình đăng nhập
-        Intent intent = new Intent(getActivity(), UserLoginActivity.class);
+        Intent intent = new Intent(getActivity(), WelcomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

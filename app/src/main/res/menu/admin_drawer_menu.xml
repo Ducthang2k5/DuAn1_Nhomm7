@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_duyet_don"
+        android:title="Duyệt đơn"
+        android:icon="@drawable/ic_checklist" />
+
+    <item
+        android:id="@+id/nav_quan_ly_tai_khoan"
+        android:title="Quản lý tài khoản"
+        android:icon="@drawable/ic_people" />
+
+    <item
+        android:id="@+id/nav_quan_ly_san_pham"
+        android:title="Quản lý sản phẩm"
+        android:icon="@drawable/ic_products" />
+
+    <item
+        android:id="@+id/nav_thong_ke"
+        android:title="Thống kê đơn hàng"
+        android:icon="@drawable/ic_chart" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Hồ sơ"
+        android:icon="@drawable/ic_user" />
+
+    <item
+        android:id="@+id/nav_dang_xuat"
+        android:title="Đăng xuất"
+        android:icon="@drawable/ic_logout" />
+</menu>
