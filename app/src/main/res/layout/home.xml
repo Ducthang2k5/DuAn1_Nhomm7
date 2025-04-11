@@ -10,5 +10,5 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@drawable/bottom_nav_color"
         app:itemTextColor="@drawable/bottom_nav_color"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="labeled">
 </RelativeLayout>

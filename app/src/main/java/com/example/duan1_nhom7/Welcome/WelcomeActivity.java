@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.duan1_nhom7.Admin.AdminLoginActivity;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.User.UserLoginActivity;
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_statistics" android:title="Thống kê"/>
+    <item android:id="@+id/menu_confirm" android:title="Xác nhận sản phẩm"/>
+    <item android:id="@+id/menu_edit_user" android:title="Chỉnh sửa người dùng"/>
+</menu>
