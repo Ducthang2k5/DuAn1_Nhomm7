@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+=======
+>>>>>>> main
 
     <application
         android:allowBackup="true"
@@ -18,6 +21,39 @@
         android:theme="@style/Theme.DuAn1_Nhom7"
         tools:targetApi="31">
 
+        <activity
+            android:name=".AdminNavDrawer.MainAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Voucher.VoucherActitity"
+            android:exported="false" />
+        <activity
+            android:name=".Payment.CheckOutAcvivity"
+            android:exported="false" />
+        <activity
+            android:name=".password.PasswordChangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Product.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.UserLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Cart.CartActivity"
+            android:exported="false" />
         <activity
             android:name=".AdminNavDrawer.MainAdminActivity"
             android:exported="false" />

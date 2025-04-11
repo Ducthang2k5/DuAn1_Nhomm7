@@ -109,6 +109,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+<<<<<<< HEAD
         <Button
             android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
@@ -120,6 +121,8 @@
 
 
 
+=======
+>>>>>>> main
         <LinearLayout
             android:id="@+id/userFrgmDangXuat"
             android:layout_width="match_parent"
