@@ -7,7 +7,6 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.duan1_nhom7.R;
-import com.google.firebase.Firebase;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
@@ -35,7 +34,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
         finish();
     }
     private void statistic(){
-
 
     }
 

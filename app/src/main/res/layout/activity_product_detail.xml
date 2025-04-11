@@ -1,0 +1,166 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/main"
+    android:orientation="horizontal">
+
+    <!-- Hình ảnh sản phẩm -->
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"/>
+
+<!--    android:src="@drawable/product_image"-->
+
+    <!-- Tên sản phẩm -->
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productImage"
+        android:layout_marginTop="16dp"
+        android:text="Tên Sản Phẩm"
+        android:textSize="20sp"
+        android:textColor="#333333"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <!-- Giá sản phẩm -->
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productName"
+        android:layout_marginTop="8dp"
+        android:text="Giá: VNĐ"
+        android:textSize="18sp"
+        android:textColor="#FF5722"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
+
+    <!-- Lựa chọn Size -->
+    <TextView
+        android:id="@+id/selectSizeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/productPrice"
+        android:layout_marginTop="16dp"
+        android:text="Chọn Size"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:paddingStart="16dp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <RadioGroup
+        android:id="@+id/sizeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectSizeLabel"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/sizeS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <RadioButton
+            android:id="@+id/sizeM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <RadioButton
+            android:id="@+id/sizeL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+    </RadioGroup>
+
+    <!-- Lựa chọn loại đường -->
+    <TextView
+        android:id="@+id/selectSugarLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sizeGroup"
+        android:layout_marginTop="16dp"
+        android:text="Chọn Đường"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:paddingStart="16dp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <RadioGroup
+        android:id="@+id/sugarGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectSugarLabel"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/sugar100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <RadioButton
+            android:id="@+id/sugar75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="75%"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <RadioButton
+            android:id="@+id/sugar50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50%"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+    </RadioGroup>
+
+    <!-- Mô tả ghi chú sản phẩm -->
+    <TextView
+        android:id="@+id/productDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sugarGroup"
+        android:layout_marginTop="16dp"
+        android:text="Trà sữa thơm ngon, với nhiều lựa chọn size và mức đường."
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:lineSpacingExtra="4dp"/>
+
+    <!-- Nút Thêm vào giỏ hàng -->
+    <Button
+        android:id="@+id/btnAddToCart"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/productDescription"
+        android:layout_marginTop="16dp"
+        android:background="#FF5722"
+        android:text="Thêm vào Giỏ Hàng"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:radius="8dp"/>
+</RelativeLayout>
