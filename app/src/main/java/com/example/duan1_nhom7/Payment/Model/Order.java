@@ -1,10 +1,12 @@
 package com.example.duan1_nhom7.Payment.Model;
 
 import com.example.duan1_nhom7.Cart.Model.CartItem;
-
+import com.google.firebase.Timestamp;
 import java.util.List;
 
 public class Order {
+
+    private String orderId;
     private String userId;
     private String name;
     private String phone;
@@ -13,17 +15,24 @@ public class Order {
     private String paymentMethod;
     private String voucher;
     private String note;
+
     private int subtotal;
     private int shippingFee;
     private int discount;
-    private int total;
-    private long timestamp;
+    private int voucherDiscount;
+    private int totalPayment;
 
-    public Order() {}
+    private Timestamp timestamp;
+    private String status;
 
-    public Order(String userId, String name, String phone, String address, List<CartItem> items,
+    public Order() {
+    }
+
+    public Order(String orderId, String userId, String name, String phone, String address, List<CartItem> items,
                  String paymentMethod, String voucher, String note,
-                 int subtotal, int shippingFee, int discount, int total, long timestamp) {
+                 int subtotal, int shippingFee, int discount, int voucherDiscount, int totalPayment,
+                 Timestamp timestamp, String status) {
+        this.orderId = orderId;
         this.userId = userId;
         this.name = name;
         this.phone = phone;
@@ -35,16 +44,20 @@ public class Order {
         this.subtotal = subtotal;
         this.shippingFee = shippingFee;
         this.discount = discount;
-        this.total = total;
+        this.voucherDiscount = voucherDiscount;
+        this.totalPayment = totalPayment;
         this.timestamp = timestamp;
+        this.status = status;
     }
 
-    public String getPhone() {
-        return phone;
+    // Getter & Setter
+
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getUserId() {
@@ -61,6 +74,14 @@ public class Order {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -127,20 +148,57 @@ public class Order {
         this.discount = discount;
     }
 
-    public int getTotal() {
-        return total;
+    public int getVoucherDiscount() {
+        return voucherDiscount;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setVoucherDiscount(int voucherDiscount) {
+        this.voucherDiscount = voucherDiscount;
     }
 
-    public long getTimestamp() {
+    public int getTotalPayment() {
+        return totalPayment;
+    }
+
+    public void setTotalPayment(int totalPayment) {
+        this.totalPayment = totalPayment;
+    }
+
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId='" + orderId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", items=" + (items != null ? items.size() + " sản phẩm" : "null") +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", voucher='" + voucher + '\'' +
+                ", note='" + note + '\'' +
+                ", subtotal=" + subtotal +
+                ", shippingFee=" + shippingFee +
+                ", discount=" + discount +
+                ", voucherDiscount=" + voucherDiscount +
+                ", totalPayment=" + totalPayment +
+                ", timestamp=" + (timestamp != null ? timestamp.toDate().toString() : "null") +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }
