@@ -1,11 +1,15 @@
 package com.example.duan1_nhom7.home;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,50 +22,49 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.duan1_nhom7.R;
 import com.example.duan1_nhom7.User.UserLoginActivity;
-<<<<<<< HEAD
 import com.example.duan1_nhom7.Welcome.WelcomeActivity;
-
 import com.example.duan1_nhom7.home.model.Account;
-=======
-import com.example.duan1_nhom7.model.Account;
->>>>>>> main
 import com.example.duan1_nhom7.password.PasswordChangeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class AccountFragment extends Fragment {
     private ImageView imgAvatar;
     private TextView txtFullName, txtEmail, txtPhone, txtBirthday, txtAddress;
-    private LinearLayout btnLogout, btnChangePassword; // Thêm biến cho nút Đổi Mật Khẩu
+    private LinearLayout btnLogout, btnChangePassword;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri imageUri;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Khởi tạo FirebaseAuth và Firestore trước khi gọi addSampleUser()
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Kiểm tra xem người dùng đã đăng nhập chưa và in ra UID
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
-            Log.d("User UID", "UID của người dùng hiện tại: " + uid); // In ra UID
+            Log.d("User UID", "UID của người dùng hiện tại: " + uid);
         } else {
             Log.e("Firebase", "Người dùng chưa đăng nhập!");
         }
 
-        // Kiểm tra nếu chưa đăng nhập thì không gọi addSampleUser()
         if (auth.getCurrentUser() != null) {
             addSampleUser();
         } else {
             Log.e("Firebase", "Lỗi: Người dùng chưa đăng nhập!");
         }
 
-        // Ánh xạ view
+        Button btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnEditProfile.setOnClickListener(v -> showEditProfileDialog());
+
         imgAvatar = view.findViewById(R.id.imgAvatar);
         txtFullName = view.findViewById(R.id.txtFullName);
         txtEmail = view.findViewById(R.id.txtEmail);
@@ -69,21 +72,57 @@ public class AccountFragment extends Fragment {
         txtBirthday = view.findViewById(R.id.txtBirthday);
         txtAddress = view.findViewById(R.id.txtAddress);
         btnLogout = view.findViewById(R.id.userFrgmDangXuat);
-        btnChangePassword = view.findViewById(R.id.userFrgmDoiMK);  // Ánh xạ nút Đổi Mật Khẩu
+        btnChangePassword = view.findViewById(R.id.userFrgmDoiMK);
 
-        // Tải dữ liệu từ Firestore
         loadUserData();
 
-        // Xử lý sự kiện đăng xuất
         btnLogout.setOnClickListener(v -> logout());
-
-        // Xử lý sự kiện đổi mật khẩu
         btnChangePassword.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PasswordChangeActivity.class);
             startActivity(intent);
         });
 
+        imgAvatar.setOnClickListener(v -> openImageChooser());
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            Glide.with(getContext()).load(imageUri).into(imgAvatar);
+            uploadImageToFirebase();
+        }
+    }
+
+    private void openImageChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void uploadImageToFirebase() {
+        if (imageUri == null) return;
+
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
+
+        String uid = user.getUid();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("avatars/" + uid + ".jpg");
+
+        storageRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            String imageUrl = uri.toString();
+                            db.collection("account").document(uid)
+                                    .update("avatarUrl", imageUrl)
+                                    .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Ảnh đại diện đã cập nhật", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Lỗi lưu ảnh: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        }))
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Upload ảnh thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -91,8 +130,8 @@ public class AccountFragment extends Fragment {
         super.onStart();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            updateUserEmail(user);  // Cập nhật email khi người dùng đăng nhập
-            loadUserData();  // Tải lại dữ liệu người dùng
+            updateUserEmail(user);
+            loadUserData();
         }
     }
 
@@ -125,12 +164,11 @@ public class AccountFragment extends Fragment {
 
                     if (documentSnapshot != null && documentSnapshot.exists()) {
                         txtFullName.setText(documentSnapshot.getString("fullName"));
-                        txtEmail.setText(documentSnapshot.getString("email"));  // Hiển thị email
+                        txtEmail.setText(documentSnapshot.getString("email"));
                         txtPhone.setText(documentSnapshot.getString("phone"));
                         txtBirthday.setText(documentSnapshot.getString("birthday"));
                         txtAddress.setText(documentSnapshot.getString("address"));
 
-                        // Hiển thị ảnh đại diện nếu có
                         String avatarUrl = documentSnapshot.getString("avatarUrl");
                         if (avatarUrl != null && !avatarUrl.isEmpty()) {
                             Glide.with(getContext()).load(avatarUrl).into(imgAvatar);
@@ -138,9 +176,6 @@ public class AccountFragment extends Fragment {
                     }
                 });
     }
-
-
-
 
     private void addSampleUser() {
         FirebaseUser currentUser = auth.getCurrentUser();
@@ -154,15 +189,14 @@ public class AccountFragment extends Fragment {
         db.collection("account").document(userId).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (!documentSnapshot.exists()) {
-                        // Tạo tài khoản mới cho người dùng
                         Account newAccount = new Account(
                                 userId,
-                                "Tên Người Dùng",  // Bạn có thể lấy từ tài khoản Firebase hoặc yêu cầu người dùng nhập
-                                "email@example.com", // Email của người dùng
-                                "",  // Bạn có thể cung cấp ảnh đại diện mặc định
-                                "Số điện thoại",  // Số điện thoại mặc định
-                                "Ngày sinh ",  // Ngày sinh mặc định
-                                "Địa chỉ giao hàng"   // Địa chỉ mặc định
+                                "Tên Người Dùng",
+                                "email@example.com",
+                                "",
+                                "Số điện thoại",
+                                "Ngày sinh ",
+                                "Địa chỉ giao hàng"
                         );
 
                         db.collection("account").document(userId).set(newAccount)
@@ -173,23 +207,50 @@ public class AccountFragment extends Fragment {
                 .addOnFailureListener(e -> Log.e("Firestore", "Lỗi khi kiểm tra dữ liệu", e));
     }
 
+    private void showEditProfileDialog() {
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_profile, null);
+        EditText edtName = dialogView.findViewById(R.id.edtName);
+        EditText edtPhone = dialogView.findViewById(R.id.edtPhone);
+        EditText edtBirthday = dialogView.findViewById(R.id.edtBirthday);
+        EditText edtAddress = dialogView.findViewById(R.id.edtAddress);
 
+        edtName.setText(txtFullName.getText().toString());
+        edtPhone.setText(txtPhone.getText().toString());
+        edtBirthday.setText(txtBirthday.getText().toString());
+        edtAddress.setText(txtAddress.getText().toString());
 
-
-
+        new AlertDialog.Builder(getContext())
+                .setTitle("Sửa thông tin")
+                .setView(dialogView)
+                .setPositiveButton("Lưu", (dialog, which) -> {
+                    FirebaseUser user = auth.getCurrentUser();
+                    if (user != null) {
+                        String uid = user.getUid();
+                        db.collection("account").document(uid)
+                                .update(
+                                        "fullName", edtName.getText().toString(),
+                                        "phone", edtPhone.getText().toString(),
+                                        "birthday", edtBirthday.getText().toString(),
+                                        "address", edtAddress.getText().toString()
+                                )
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                    loadUserData();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    }
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
 
     private void logout() {
         auth.signOut();
         Toast.makeText(getContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
-
-        // Chuyển về màn hình đăng nhập
-<<<<<<< HEAD
         Intent intent = new Intent(getActivity(), WelcomeActivity.class);
-=======
-        Intent intent = new Intent(getActivity(), UserLoginActivity.class);
->>>>>>> main
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
-

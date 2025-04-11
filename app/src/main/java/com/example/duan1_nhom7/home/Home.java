@@ -1,6 +1,5 @@
 package com.example.duan1_nhom7.home;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.duan1_nhom7.Cart.CartActivity;
 import com.example.duan1_nhom7.R;
-import com.example.duan1_nhom7.home.HomeFragment;
-import com.example.duan1_nhom7.home.ProductFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.view.MenuItem;
 
 public class Home extends AppCompatActivity implements HomeFragment.OnCartClickListener {
 
@@ -34,8 +30,8 @@ public class Home extends AppCompatActivity implements HomeFragment.OnCartClickL
                 selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.nav_products) {
                 selectedFragment = new ProductFragment();
-            }else if (item.getItemId() == R.id.nav_cart) {
-                selectedFragment = new CartFragment();
+            }else if (item.getItemId() == R.id.nav_favorite) {
+                selectedFragment = new FavoriteFragment();
             }else if (item.getItemId() == R.id.nav_account) {
                 selectedFragment = new AccountFragment();
             }

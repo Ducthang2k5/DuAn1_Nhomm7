@@ -2,6 +2,7 @@ package com.example.duan1_nhom7.Product;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private FirebaseUser currentUser;
 
     private Button btnViewDetails;
+
 
     public ProductAdapter(Activity activity, List<Product> productList, HomeFragment homeFragment) {
         this.activity = activity;
@@ -82,7 +84,64 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             intent.putExtra("productId", product.getId());  // Truyền productId qua Intent
             activity.startActivity(intent);  // Dùng activity.startActivity thay vì context.startActivity
         });
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            // Kiểm tra nếu sản phẩm đã được yêu thích
+            db.collection("users")
+                    .document(userId)
+                    .collection("favorites")
+                    .document(product.getId())
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            holder.btnFavorite.setImageResource(R.drawable.ic_heart_filled); // Đã thích
+                            holder.btnFavorite.setTag(true); // Đánh dấu đã thích
+                        } else {
+                            holder.btnFavorite.setImageResource(R.drawable.ic_love); // Chưa thích
+                            holder.btnFavorite.setTag(false);
+                        }
+                    });
+
+            // Xử lý khi nhấn vào nút yêu thích
+            holder.btnFavorite.setOnClickListener(v -> {
+                Boolean isFavorite = (Boolean) holder.btnFavorite.getTag();
+                if (isFavorite != null && isFavorite) {
+                    // Bỏ thích
+                    db.collection("users")
+                            .document(userId)
+                            .collection("favorites")
+                            .document(product.getId())
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                holder.btnFavorite.setImageResource(R.drawable.ic_love);
+                                holder.btnFavorite.setTag(false);
+                                Toast.makeText(activity, "Đã bỏ yêu thích", Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    // Thêm vào yêu thích
+                    db.collection("users")
+                            .document(userId)
+                            .collection("favorites")
+                            .document(product.getId())
+                            .set(product)
+                            .addOnSuccessListener(aVoid -> {
+                                holder.btnFavorite.setImageResource(R.drawable.ic_heart_filled);
+                                holder.btnFavorite.setTag(true);
+                                Toast.makeText(activity, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                                Log.d("FIREBASE", "Đã thêm yêu thích: " + product.getName());
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e("FIREBASE", "Lỗi ghi yêu thích: " + e.getMessage());
+                            });
+
+                }
+            });
+        }
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -93,6 +152,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView txtName, txtPrice;
         ImageView imgProduct;
         Button btnViewDetails;
+        ImageView btnFavorite;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +160,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtPrice = itemView.findViewById(R.id.tvProductPrice);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             btnViewDetails = itemView.findViewById(R.id.btnViewDetail);
+            btnFavorite = itemView.findViewById(R.id.btnFavorite);
         }
     }
 }
