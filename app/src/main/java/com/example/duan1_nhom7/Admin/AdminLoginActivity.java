@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duan1_nhom7.AdminNavDrawer.MainAdminActivity;
 import com.example.duan1_nhom7.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,7 +73,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                         if ("admin".equals(role)) {
                             // Đăng nhập thành công, chuyển sang Admin Dashboard
                             Toast.makeText(AdminLoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(AdminLoginActivity.this, AdminDashboardActivity.class));
+                            startActivity(new Intent(AdminLoginActivity.this, MainAdminActivity.class));
                             finish();
                         } else {
                             // Không phải Admin => Đăng xuất

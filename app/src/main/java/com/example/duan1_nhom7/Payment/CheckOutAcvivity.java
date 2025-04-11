@@ -45,24 +45,24 @@ public class CheckOutAcvivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private List<CartItem> cartItemList;
-    private CartAdapter cartAdapter;
 
     private int subtotal = 0;
     private int shippingFee = 20000;
     private int voucherDiscount = 0;
-
-    private String selectedVoucher = "none";
+    private String selectedVoucher = "Không dùng";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_check_out_acvivity);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -106,16 +106,13 @@ public class CheckOutAcvivity extends AppCompatActivity {
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         CartItem item = doc.toObject(CartItem.class);
                         cartItemList.add(item);
-                        String rawPrice = item.getProductPrice().replaceAll("[^\\d]", ""); // giữ lại số
+
+                        String rawPrice = item.getProductPrice().replaceAll("[^\\d]", "");
                         int price = Integer.parseInt(rawPrice);
-                        int quantity = item.getProductQuantity();
-                        subtotal += price * quantity;
+                        subtotal += price * item.getProductQuantity();
                     }
 
-                    CartSummaryAdapter summaryAdapter = new CartSummaryAdapter(cartItemList);
-                    recyclerViewCart.setAdapter(summaryAdapter);
-
-
+                    recyclerViewCart.setAdapter(new CartAdapter(this, cartItemList));
                     updatePriceViews();
                 });
     }
@@ -167,12 +164,12 @@ public class CheckOutAcvivity extends AppCompatActivity {
         order.put("voucherDiscount", voucherDiscount);
         order.put("totalPayment", subtotal + shippingFee - voucherDiscount);
         order.put("timestamp", FieldValue.serverTimestamp());
+        order.put("status", "ordered");
 
         db.collection("orders")
                 .document(orderId)
                 .set(order)
                 .addOnSuccessListener(unused -> {
-                    // Lưu danh sách sản phẩm
                     for (CartItem item : cartItemList) {
                         db.collection("orders")
                                 .document(orderId)
@@ -180,9 +177,7 @@ public class CheckOutAcvivity extends AppCompatActivity {
                                 .add(item);
                     }
 
-                    // Xóa giỏ hàng
-//                    deleteCart(userId);
-
+                    deleteCart(userId);
                     Toast.makeText(this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 });
@@ -215,6 +210,5 @@ public class CheckOutAcvivity extends AppCompatActivity {
             tvSelectedVoucher.setText(selectedVoucher);
             updatePriceViews();
         }
-
     }
 }
